@@ -4,10 +4,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { logoutUser } from '../../actions/auth'
+import { clearCurrentProfile } from '../../actions/profile'
 
 class Navbar extends Component {
     onLogoutClick = e => {
         e.preventDefault()
+        this.props.clearCurrentProfile()
         this.props.logoutUser()
     }
 
@@ -22,7 +24,13 @@ class Navbar extends Component {
                         onClick={this.onLogoutClick}
                         className="nav-link"
                     >
-                        <img src={user.avatar} alt={user.name} title='You must have a Gravatar connected to your email to display an image' style={{width: '25px', marginRight: '5px'}} className='rounded-circle'/>
+                        <img
+                            src={user.avatar}
+                            alt={user.name}
+                            title="You must have a Gravatar connected to your email to display an image"
+                            style={{ width: '25px', marginRight: '5px' }}
+                            className="rounded-circle"
+                        />
                         Logout
                     </a>
                 </li>
@@ -86,5 +94,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { logoutUser },
+    { logoutUser, clearCurrentProfile },
 )(Navbar)

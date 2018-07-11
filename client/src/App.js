@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import jwt_decode from 'jwt-decode'
 
 import { setCurrentUser, logoutUser } from './actions/auth'
+import { clearCurrentProfile } from './actions/profile'
 import setAuthToken from './utils/setAuthToken'
 import store from './store'
 
@@ -12,6 +13,7 @@ import Footer from './components/Layout/Footer'
 import Landing from './components/Layout/Landing'
 import Register from './components/Auth/Register'
 import Login from './components/Auth/Login'
+import Dashboard from './components/Dashboard/Dashboard'
 
 import './App.css'
 
@@ -24,6 +26,7 @@ if (localStorage.jwtToken) {
     const currentTime = Date.now() / 1000
     if (decoded.exp < currentTime) {
         store.dispatch(logoutUser())
+        store.dispatch(clearCurrentProfile())
         window.location.href = '/login'
     }
 }
@@ -43,6 +46,11 @@ class App extends Component {
                                 component={Register}
                             />
                             <Route exact path="/login" component={Login} />
+                            <Route
+                                exact
+                                path="/dashboard"
+                                component={Dashboard}
+                            />
                         </div>
                         <Footer />
                     </div>
