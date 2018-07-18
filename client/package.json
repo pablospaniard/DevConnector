@@ -19,13 +19,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "test:ci": "CI=true react-scripts test --env=jsdom --runInBand",
-    "eject": "react-scripts eject"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn test:ci"
-    }
+    "eject": "react-scripts eject",
+    "pre-commit": "lint-staged",
+    "pre-push": "yarn test:ci"
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
