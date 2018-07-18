@@ -4,16 +4,8 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "parser": "babel-eslint",
-    "plugins": [
-        "babel",
-        "react",
-        "promise"
-    ],
     "env": {
-        "es6": true,
-        "browser": true,
-        "jest": true
+        "es6": true
     },
     "rules": {
         "prefer-const": "error"

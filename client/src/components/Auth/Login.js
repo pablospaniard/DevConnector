@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
-import { loginUser } from '../../actions/auth'
+import {loginUser} from '../../actions/auth'
 import TextFieldGroup from '../Common/TextFieldGroup'
 
 class Login extends Component {
@@ -27,7 +27,7 @@ class Login extends Component {
     }
 
     componentDidUpdate() {
-        const { isAuthenticated } = this.props.auth
+        const {isAuthenticated} = this.props.auth
         if (isAuthenticated) {
             this.props.history.push('/dashboard')
         }
@@ -51,7 +51,7 @@ class Login extends Component {
     }
 
     render() {
-        const { errors } = this.state
+        const {errors} = this.state
         return (
             <div className="login">
                 <div className="container">
@@ -104,5 +104,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { loginUser },
+    {loginUser},
 )(Login)
