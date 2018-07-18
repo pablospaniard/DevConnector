@@ -7,7 +7,7 @@ import TextFieldGroup from '../Common/TextFieldGroup'
 
 class Login extends Component {
     state = {
-        email: '',
+        email: {},
         password: '',
         errors: {},
     }
