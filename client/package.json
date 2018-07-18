@@ -27,13 +27,6 @@
       "pre-push": "yarn test:ci"
     }
   },
-  "lint-staged": {
-    "**/*.+(js|md|ts|css|sass|less|graphql|yml|yaml|scss|json|vue)": [
-      "prettier --write",
-      "eslint --fix",
-      "git add"
-    ]
-  },
   "proxy": "http://localhost:5000",
   "devDependencies": {
     "babel-eslint": "^8.2.6",
