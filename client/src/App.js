@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import React, {Component} from 'react'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {Provider} from 'react-redux'
 import jwt_decode from 'jwt-decode'
 
-import { setCurrentUser, logoutUser } from './actions/auth'
-import { clearCurrentProfile } from './actions/profile'
+import {setCurrentUser, logoutUser} from './actions/auth'
+import {clearCurrentProfile} from './actions/profile'
 import setAuthToken from './utils/setAuthToken'
 import store from './store'
 
