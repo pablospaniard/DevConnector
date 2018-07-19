@@ -23,12 +23,12 @@ class CreateProfile extends Component {
     linkedin: '',
     youtube: '',
     instagram: '',
-    errors: {},
+    errors: {}
   }
 
   static getDerivedStateFromProps = nextProps => {
     return {
-      errors: nextProps.errors,
+      errors: nextProps.errors
     }
   }
 
@@ -47,7 +47,7 @@ class CreateProfile extends Component {
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
       youtube: this.state.youtube,
-      instagram: this.state.instagram,
+      instagram: this.state.instagram
     }
 
     this.props.createProfile(profileData, this.props.history)
@@ -55,7 +55,7 @@ class CreateProfile extends Component {
 
   onChange = e => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     })
   }
   render() {
@@ -123,7 +123,7 @@ class CreateProfile extends Component {
       {label: 'Student or Learning', value: 'Student or Learning'},
       {label: 'Instructor or Teacher', value: 'Instructor or Teacher'},
       {label: 'Intern', value: 'Intern'},
-      {label: 'Other', value: 'Other'},
+      {label: 'Other', value: 'Other'}
     ]
     return (
       <div className="create-profile">
@@ -208,7 +208,7 @@ class CreateProfile extends Component {
                     type="button"
                     onClick={() => {
                       this.setState(prevState => ({
-                        displaySocialInputs: !prevState.displaySocialInputs,
+                        displaySocialInputs: !prevState.displaySocialInputs
                       }))
                     }}
                     className="btn btn-light"
@@ -234,15 +234,15 @@ class CreateProfile extends Component {
 
 CreateProfile.proptypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  errors: state.errors,
+  errors: state.errors
 })
 
 export default connect(
   mapStateToProps,
-  {createProfile},
+  {createProfile}
 )(CreateProfile)
