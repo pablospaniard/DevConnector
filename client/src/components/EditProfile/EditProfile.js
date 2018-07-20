@@ -5,9 +5,9 @@ import TextFieldGroup from '../Common/TextFieldGroup'
 import TextAreaFieldGroup from '../Common/TextAreaFieldGroup'
 import InputGroup from '../Common/InputGroup'
 import SelectListGroup from '../Common/SelectListGroup'
-import {createProfile} from '../../actions/profile'
+import {createProfile, getCurrentProfile} from '../../actions/profile'
 
-class CreateProfile extends Component {
+class EditProfile extends Component {
   state = {
     displaySocialInputs: false,
     handle: '',
@@ -26,9 +26,24 @@ class CreateProfile extends Component {
     errors: {}
   }
 
-  static getDerivedStateFromProps = nextProps => {
-    return {
-      errors: nextProps.errors
+  componentDidMount = () => {
+    this.props.getCurrentProfile()
+  }
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      })
+    }
+    if (nextProps.profile.profile) {
+      const {skills, social, ...profile} = nextProps.profile.profile
+      this.setState(prevState => ({
+        ...prevState,
+        ...profile,
+        ...social,
+        skills: skills.join(',')
+      }))
     }
   }
 
@@ -130,10 +145,7 @@ class CreateProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Create Your Profile</h1>
-              <p className="lead text-center">
-                Let's get some information to make your profile stand out.
-              </p>
+              <h1 className="display-4 text-center">Edit Profile</h1>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
@@ -232,9 +244,12 @@ class CreateProfile extends Component {
   }
 }
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -244,5 +259,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {createProfile}
-)(CreateProfile)
+  {createProfile, getCurrentProfile}
+)(EditProfile)

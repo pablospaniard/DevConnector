@@ -9,14 +9,14 @@ export const getCurrentProfile = () => dispatch => {
     .then(res =>
       dispatch({
         type: constants.GET_PROFILE,
-        payload: res.data,
-      }),
+        payload: res.data
+      })
     )
     .catch(err =>
       dispatch({
         type: constants.GET_PROFILE,
-        payload: {},
-      }),
+        payload: {}
+      })
     )
 }
 
@@ -27,19 +27,38 @@ export const createProfile = (profileData, history) => dispatch => {
     .catch(err =>
       dispatch({
         type: constants.GET_ERRORS,
-        payload: err.response.data,
-      }),
+        payload: err.response.data
+      })
     )
+}
+
+export const deleteAccount = () => dispatch => {
+  if (window.confirm('Are you sure? This can NOT be undone!')) {
+    axios
+      .delete('/api/profile')
+      .then(res =>
+        dispatch({
+          type: constants.SET_CURRENT_USER,
+          payload: {}
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: constants.GET_ERRORS,
+          payload: err.response.data
+        })
+      )
+  }
 }
 
 export const setProfileLoading = () => {
   return {
-    type: constants.PROFILE_LOADING,
+    type: constants.PROFILE_LOADING
   }
 }
 
 export const clearCurrentProfile = () => {
   return {
-    type: constants.CLEAR_CURRENT_PROFILE,
+    type: constants.CLEAR_CURRENT_PROFILE
   }
 }
