@@ -92,12 +92,14 @@ router.get('/user/:user_id', (req, res) => {
 //@access Private
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
   const {errors, isValid} = validateProfileInput(req.body)
-  //Validation
+
+  // Check Validation
   if (!isValid) {
+    // Return any errors with 400 status
     return res.status(400).json(errors)
   }
 
-  //Get fields
+  // Get fields
   const profileFields = {}
   profileFields.user = req.user.id
   if (req.body.handle) profileFields.handle = req.body.handle
@@ -108,11 +110,12 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
   if (req.body.status) profileFields.status = req.body.status
   if (req.body.githubusername)
     profileFields.githubusername = req.body.githubusername
-  //Skills - Array
-  if (typeof req.body.skills !== undefined) {
+  // Skills - Spilt into array
+  if (typeof req.body.skills !== 'undefined') {
     profileFields.skills = req.body.skills.split(',')
   }
-  //Social
+
+  // Social
   profileFields.social = {}
   if (req.body.youtube) profileFields.social.youtube = req.body.youtube
   if (req.body.twitter) profileFields.social.twitter = req.body.twitter
@@ -122,20 +125,23 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 
   Profile.findOne({user: req.user.id}).then(profile => {
     if (profile) {
-      //Update
+      // Update
       Profile.findOneAndUpdate(
         {user: req.user.id},
         {$set: profileFields},
         {new: true}
       ).then(profile => res.json(profile))
     } else {
-      //Create
+      // Create
+
+      // Check if handle exists
       Profile.findOne({handle: profileFields.handle}).then(profile => {
         if (profile) {
           errors.handle = 'That handle already exists'
-          res.status(400).json(erros)
+          res.status(400).json(errors)
         }
-        //Save Profile
+
+        // Save Profile
         new Profile(profileFields).save().then(profile => res.json(profile))
       })
     }
