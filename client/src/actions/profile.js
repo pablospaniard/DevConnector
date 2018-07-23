@@ -32,6 +32,64 @@ export const createProfile = (profileData, history) => dispatch => {
     )
 }
 
+export const addExperience = (data, history) => dispatch => {
+  axios
+    .post('/api/profile/experience', data)
+    .then(res => history.push('/dashboard'))
+    .catch(err =>
+      dispatch({
+        type: constants.GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}
+
+export const deleteExperience = id => dispatch => {
+  axios
+    .delete(`/api/profile/experience/${id}`)
+    .then(res =>
+      dispatch({
+        type: constants.GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: constants.GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}
+
+export const addEducation = (data, history) => dispatch => {
+  axios
+    .post('/api/profile/education', data)
+    .then(res => history.push('/dashboard'))
+    .catch(err =>
+      dispatch({
+        type: constants.GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}
+
+export const deleteEducation = id => dispatch => {
+  axios
+    .delete(`/api/profile/education/${id}`)
+    .then(res =>
+      dispatch({
+        type: constants.GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: constants.GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}
+
 export const deleteAccount = () => dispatch => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     axios
